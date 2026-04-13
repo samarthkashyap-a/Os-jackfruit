@@ -1,6 +1,6 @@
-## ▶️ Build, Load, and Run Instructions  
+##  Build, Load, and Run Instructions  
 
-### 🔹 Prerequisites  
+###  Prerequisites  
 
 Install required dependencies:  
 
@@ -11,7 +11,7 @@ sudo apt install -y build-essential linux-headers-$(uname -r)
 
 ---
 
-### 🔹 Prepare Alpine Root Filesystem  
+###  Prepare Alpine Root Filesystem  
 
 ```bash
 mkdir rootfs-base
@@ -24,7 +24,7 @@ cp -a ./rootfs-base ./rootfs-beta
 
 ---
 
-### 🔹 Build the Project  
+### Build the Project  
 
 ```bash
 make
@@ -39,7 +39,7 @@ This builds:
 
 ---
 
-### 🔹 Copy Workloads into Container Filesystems  
+###  Copy Workloads into Container Filesystems  
 
 ```bash
 cp memory_hog cpu_hog io_pulse ./rootfs-alpha/
@@ -48,7 +48,7 @@ cp memory_hog cpu_hog io_pulse ./rootfs-beta/
 
 ---
 
-### 🔹 Load Kernel Module  
+###  Load Kernel Module  
 
 ```bash
 sudo insmod monitor.ko
@@ -57,7 +57,7 @@ ls -l /dev/container_monitor
 
 ---
 
-### 🔹 Start Supervisor (Terminal 1)  
+###  Start Supervisor (Terminal 1)  
 
 ```bash
 sudo ./engine supervisor ./rootfs-base
@@ -65,7 +65,7 @@ sudo ./engine supervisor ./rootfs-base
 
 ---
 
-### 🔹 Run CLI Commands (Terminal 2)  
+###  Run CLI Commands (Terminal 2)  
 
 ```bash
 sudo ./engine start alpha ./rootfs-alpha "/cpu_hog" --soft-mib 48 --hard-mib 80
@@ -80,7 +80,7 @@ sudo ./engine stop beta
 
 ---
 
-### 🔹 Memory Limit Test  
+###  Memory Limit Test  
 
 ```bash
 sudo ./engine start alpha ./rootfs-alpha "/memory_hog" --soft-mib 10 --hard-mib 20
@@ -94,7 +94,7 @@ sudo ./engine ps
 
 ---
 
-### 🔹 Scheduling Experiment  
+###  Scheduling Experiment  
 
 ```bash
 sudo rm -f logs/alpha.log logs/beta.log
@@ -112,7 +112,7 @@ echo "=== BETA  ===" && sudo ./engine logs beta  | tail -5
 
 ---
 
-### 🔹 Teardown and Cleanup  
+###  Teardown and Cleanup  
 
 ```bash
 sudo ./engine stop alpha
