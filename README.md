@@ -1,10 +1,7 @@
-# 🚀 Multi-Container Runtime
-
-**Team Size:** 2 Students  
-
+#  Multi-Container Runtime
 ---
 
-## 📌 Project Overview  
+##  Project Overview  
 
 This project focuses on building a lightweight container runtime in C on Linux.  
 Instead of relying on tools like Docker, we implemented the core ideas ourselves to better understand how containers actually work internally.  
@@ -15,9 +12,9 @@ At a high level, the project is divided into two main components:
 
 ---
 
-## 🔹 Core Components  
+##  Core Components  
 
-### 🧠 User-Space Runtime + Supervisor (`engine.c`)  
+### User-Space Runtime + Supervisor (`engine.c`)  
 
 This is the main part of the system. It is responsible for:  
 
@@ -29,7 +26,7 @@ This is the main part of the system. It is responsible for:
 
 ---
 
-### ⚙️ Kernel-Space Monitor (`monitor.c`)  
+###  Kernel-Space Monitor (`monitor.c`)  
 
 This is implemented as a Linux Kernel Module (LKM). It handles:  
 
@@ -40,7 +37,7 @@ This is implemented as a Linux Kernel Module (LKM). It handles:
 
 ---
 
-## 🖥️ Environment Setup  
+##  Environment Setup  
 
 This project is designed to run in a proper Linux environment (VM recommended).  
 
@@ -58,7 +55,7 @@ sudo apt install -y build-essential linux-headers-$(uname -r)
 
 ---
 
-## ⚙️ Initial Setup  
+##  Initial Setup  
 
 ### Run environment check  
 
@@ -85,11 +82,11 @@ cp -a ./rootfs-base ./rootfs-beta
 
 ---
 
-## 🧱 System Architecture  
+##  System Architecture  
 
 The runtime uses a single binary (`engine`) in two modes:  
 
-### 🔸 Supervisor Mode  
+###  Supervisor Mode  
 ```bash
 engine supervisor ./rootfs-base
 ```
@@ -98,7 +95,7 @@ engine supervisor ./rootfs-base
 - Manages all containers  
 - Handles logging and lifecycle  
 
-### 🔸 CLI Mode  
+###  CLI Mode  
 
 Example:  
 
@@ -111,22 +108,22 @@ engine start alpha ./rootfs-alpha /bin/sh
 
 ---
 
-## 🔗 Communication Design  
+##  Communication Design  
 
 Two separate IPC mechanisms are used:  
 
-### 📥 Path A — Logging  
+###  Path A — Logging  
 - Container → Supervisor  
 - Uses pipes  
 - Captures `stdout` and `stderr`  
 
-### 📤 Path B — Control  
+###  Path B — Control  
 - CLI → Supervisor  
 - Uses IPC (socket / FIFO / shared memory)  
 
 ---
 
-## 🧪 CLI Commands  
+##  CLI Commands  
 
 ```bash
 engine supervisor <base-rootfs>
@@ -139,9 +136,9 @@ engine stop <id>
 
 ---
 
-## ⚙️ Key Features  
+##  Key Features  
 
-### 🟢 Multi-Container Support  
+###  Multi-Container Support  
 - Multiple containers run simultaneously  
 - Each container has isolated PID, UTS, and mount namespaces  
 - Separate root filesystem per container  
@@ -149,7 +146,7 @@ engine stop <id>
 
 ---
 
-### 🟢 Logging System  
+###  Logging System  
 - Producer-consumer model  
 - Bounded buffer implementation  
 - Captures both stdout and stderr  
@@ -157,7 +154,7 @@ engine stop <id>
 
 ---
 
-### 🟢 Memory Monitoring  
+###  Memory Monitoring  
 - Kernel module tracks processes  
 - Soft limit → warning  
 - Hard limit → process termination  
@@ -165,14 +162,14 @@ engine stop <id>
 
 ---
 
-### 🟢 Scheduling Experiments  
+###  Scheduling Experiments  
 - Tested CPU-bound and I/O-bound workloads  
 - Used different priorities (`nice`)  
 - Observed behavior of Linux scheduler  
 
 ---
 
-## 🧹 Resource Management  
+##  Resource Management  
 
 Proper cleanup is handled across both user space and kernel space:  
 
@@ -184,28 +181,28 @@ Proper cleanup is handled across both user space and kernel space:
 
 ---
 
-## 🧠 Engineering Insights  
+##  Engineering Insights  
 
 This project helped us understand several core OS concepts:  
 
-### 🔹 Isolation  
+###  Isolation  
 Using namespaces and root filesystem separation, each container runs independently while still sharing the host kernel.  
 
-### 🔹 Process Management  
+###  Process Management  
 The supervisor acts as a parent process, managing lifecycle, signals, and metadata of all containers.  
 
-### 🔹 IPC & Synchronization  
+###  IPC & Synchronization  
 We used multiple IPC mechanisms and synchronization primitives to safely manage shared resources.  
 
-### 🔹 Memory Management  
+###  Memory Management  
 RSS-based monitoring helped us enforce limits and understand memory usage behavior.  
 
-### 🔹 Scheduling  
+###  Scheduling  
 Running controlled experiments showed how Linux balances fairness, responsiveness, and throughput.  
 
 ---
 
-## 📦 Project Structure  
+##  Project Structure  
 
 Required files in the repository:  
 
@@ -218,7 +215,7 @@ Required files in the repository:
 
 ---
 
-## ▶️ Example Run  
+##  Example Run  
 
 ```bash
 make
@@ -244,7 +241,7 @@ sudo rmmod monitor
 
 ---
 
-## 📸 Demonstration  
+##  Demonstration  
 
 The project includes demonstrations for:  
 
@@ -258,7 +255,7 @@ The project includes demonstrations for:
 
 ---
 
-## 👥 Team Details  
+##  Team Details  
 
 **Team Size:** 2  
 
